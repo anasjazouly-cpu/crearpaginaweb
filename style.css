@@ -524,3 +524,22 @@ cursor:pointer;
   font-weight: bold;
   cursor: pointer;
 }
+#boton-ia {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 15px 22px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#boton-ia:hover {
+  transform: scale(1.05);
+}
