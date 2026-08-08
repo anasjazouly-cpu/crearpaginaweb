@@ -502,75 +502,88 @@ const WORKER_URL =
     "https://wandering-breeze-f4e2.anasjazouly.workers.dev/";
 
 
-const chatBtn =
-    document.getElementById("chat-btn");
+/* =========================
+   ELEMENTOS DEL CHAT
+========================= */
 
-const chatBox =
-    document.getElementById("chat-box");
-
-const chatClose =
-    document.getElementById("chat-close");
-
-const chatMessages =
-    document.getElementById("chat-messages");
-
-const entradaChat =
-    document.getElementById("entrada-chat");
-
-const enviarChat =
-    document.getElementById("enviar-chat");
+const chatBtn = document.getElementById("chat-btn");
+const chatBox = document.getElementById("chat-box");
+const chatClose = document.getElementById("chat-close");
+const chatMessages = document.getElementById("chat-messages");
+const entradaChat = document.getElementById("entrada-chat");
+const enviarChat = document.getElementById("enviar-chat");
 
 
 /* =========================
    ABRIR CHAT
 ========================= */
 
-chatBtn.addEventListener("click", function () {
+if (chatBtn && chatBox) {
 
-    chatBox.classList.add("chat-abierto");
+    chatBtn.addEventListener("click", function () {
 
-    entradaChat.focus();
+        chatBox.style.display = "block";
 
-});
+        if (entradaChat) {
+            setTimeout(function () {
+                entradaChat.focus();
+            }, 100);
+        }
+
+    });
+
+}
 
 
 /* =========================
    CERRAR CHAT
 ========================= */
 
-chatClose.addEventListener("click", function () {
+if (chatClose && chatBox) {
 
-    chatBox.classList.remove("chat-abierto");
+    chatClose.addEventListener("click", function () {
 
-});
+        chatBox.style.display = "none";
+
+    });
+
+}
 
 
 /* =========================
-   ENVIAR CON ENTER
+   ENTER PARA ENVIAR
 ========================= */
 
-entradaChat.addEventListener("keydown", function (event) {
+if (entradaChat) {
 
-    if (event.key === "Enter") {
+    entradaChat.addEventListener("keydown", function (event) {
 
-        event.preventDefault();
+        if (event.key === "Enter") {
 
-        enviarPregunta();
+            event.preventDefault();
 
-    }
+            enviarPregunta();
 
-});
+        }
+
+    });
+
+}
 
 
 /* =========================
    BOTÓN ENVIAR
 ========================= */
 
-enviarChat.addEventListener("click", function () {
+if (enviarChat) {
 
-    enviarPregunta();
+    enviarChat.addEventListener("click", function () {
 
-});
+        enviarPregunta();
+
+    });
+
+}
 
 
 /* =========================
@@ -586,27 +599,25 @@ async function responder(tipo) {
         pregunta =
             "Quiero perder grasa. ¿Qué me recomiendas para empezar?";
 
-    }
-
-    if (tipo === "masa") {
+    } else if (tipo === "masa") {
 
         pregunta =
             "Quiero ganar masa muscular. ¿Qué me recomiendas para empezar?";
 
-    }
-
-    if (tipo === "nutricion") {
+    } else if (tipo === "nutricion") {
 
         pregunta =
             "Quiero mejorar mi alimentación para conseguir mis objetivos.";
 
-    }
-
-    if (tipo === "planes") {
+    } else if (tipo === "planes") {
 
         pregunta =
             "¿Qué planes de entrenamiento y nutrición ofrece Tu Objetivo Mi Plan?";
 
+    }
+
+    if (!pregunta) {
+        return;
     }
 
     await enviarMensajeIA(pregunta);
@@ -620,13 +631,14 @@ async function responder(tipo) {
 
 async function enviarPregunta() {
 
-    const pregunta =
-        entradaChat.value.trim();
+    if (!entradaChat) {
+        return;
+    }
+
+    const pregunta = entradaChat.value.trim();
 
     if (!pregunta) {
-
         return;
-
     }
 
     entradaChat.value = "";
@@ -642,7 +654,12 @@ async function enviarPregunta() {
 
 async function enviarMensajeIA(pregunta) {
 
-    /* Mostrar pregunta del usuario */
+    if (!chatMessages) {
+        return;
+    }
+
+
+    /* MENSAJE DEL USUARIO */
 
     const mensajeUsuario =
         document.createElement("div");
@@ -651,12 +668,13 @@ async function enviarMensajeIA(pregunta) {
         "usuario-message";
 
     mensajeUsuario.innerHTML =
-        `<strong>🧑 Tú:</strong><br>${escapeHTML(pregunta)}`;
+        "<strong>🧑 Tú</strong><br>" +
+        escapeHTML(pregunta);
 
     chatMessages.appendChild(mensajeUsuario);
 
 
-    /* Mostrar cargando */
+    /* MENSAJE DE CARGA */
 
     const cargando =
         document.createElement("div");
@@ -664,14 +682,10 @@ async function enviarMensajeIA(pregunta) {
     cargando.className =
         "ia-message";
 
-    cargando.id =
-        "mensaje-cargando";
-
     cargando.innerHTML =
-        "🤖 Pensando...";
+        "<strong>🤖 Asistente IA</strong><br><br>⏳ Pensando...";
 
     chatMessages.appendChild(cargando);
-
 
     chatMessages.scrollTop =
         chatMessages.scrollHeight;
@@ -679,54 +693,81 @@ async function enviarMensajeIA(pregunta) {
 
     try {
 
-        const respuesta =
-            await fetch(
-                WORKER_URL,
-                {
-                    method: "POST",
+        /* LLAMADA AL WORKER */
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+        const respuesta = await fetch(
+            WORKER_URL,
+            {
+                method: "POST",
 
-                    body: JSON.stringify({
-                        mensaje: pregunta
-                    })
-                }
-            );
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-
-        const datos =
-            await respuesta.json();
+                body: JSON.stringify({
+                    mensaje: pregunta
+                })
+            }
+        );
 
 
-        /* Eliminar mensaje de carga */
+        /* LEER RESPUESTA */
 
-        const mensajeCargando =
-            document.getElementById(
-                "mensaje-cargando"
-            );
+        const datos = await respuesta.json();
 
-        if (mensajeCargando) {
-
-            mensajeCargando.remove();
-
-        }
+        console.log(
+            "Respuesta recibida del Worker:",
+            datos
+        );
 
 
-        /* Comprobar error */
+        /* QUITAR CARGANDO */
+
+        cargando.remove();
+
+
+        /* COMPROBAR ERROR */
 
         if (!respuesta.ok) {
 
             throw new Error(
                 datos.error ||
-                "Error del servidor"
+                "El servidor ha devuelto un error."
             );
 
         }
 
 
-        /* Crear respuesta IA */
+        /*
+        ACEPTAMOS DIFERENTES NOMBRES
+        PARA EVITAR EL PROBLEMA "undefined"
+        */
+
+        const textoIA =
+            datos.respuesta ||
+            datos.response ||
+            datos.text ||
+            datos.message ||
+            datos.content;
+
+
+        /* COMPROBAR RESPUESTA */
+
+        if (!textoIA) {
+
+            console.error(
+                "Respuesta completa del Worker:",
+                datos
+            );
+
+            throw new Error(
+                "El Worker respondió, pero no envió el texto de la IA."
+            );
+
+        }
+
+
+        /* MOSTRAR RESPUESTA */
 
         const mensajeIA =
             document.createElement("div");
@@ -734,14 +775,10 @@ async function enviarMensajeIA(pregunta) {
         mensajeIA.className =
             "ia-message";
 
-        mensajeIA.innerHTML = `
-            <strong>🤖 Asistente IA</strong>
-            <br><br>
-            ${escapeHTML(
-                datos.respuesta ||
-                "No he recibido ninguna respuesta."
-            )}
-        `;
+        mensajeIA.innerHTML =
+            "<strong>🤖 Asistente IA</strong>" +
+            "<br><br>" +
+            escapeHTML(textoIA);
 
         chatMessages.appendChild(
             mensajeIA
@@ -755,22 +792,19 @@ async function enviarMensajeIA(pregunta) {
     } catch (error) {
 
         console.error(
-            "Error IA:",
+            "ERROR DEL ASISTENTE:",
             error
         );
 
 
-        const mensajeCargando =
-            document.getElementById(
-                "mensaje-cargando"
-            );
+        /* QUITAR CARGANDO */
 
-        if (mensajeCargando) {
-
-            mensajeCargando.remove();
-
+        if (cargando) {
+            cargando.remove();
         }
 
+
+        /* MOSTRAR ERROR */
 
         const mensajeError =
             document.createElement("div");
@@ -778,21 +812,15 @@ async function enviarMensajeIA(pregunta) {
         mensajeError.className =
             "ia-message";
 
-        mensajeError.innerHTML = `
-            <strong>❌ Error</strong>
-            <br><br>
-            No he podido conectar con el asistente.
-            <br><br>
-            Puedes contactar directamente por WhatsApp.
-            <br><br>
-            <a
-                href="https://wa.me/34644832580"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Contactar por WhatsApp
-            </a>
-        `;
+        mensajeError.innerHTML =
+            "<strong>❌ Error</strong>" +
+            "<br><br>" +
+            escapeHTML(error.message) +
+            "<br><br>" +
+            '<a href="https://wa.me/34644832580" target="_blank" rel="noopener noreferrer">' +
+            "Contactar por WhatsApp" +
+            "</a>";
+
 
         chatMessages.appendChild(
             mensajeError
@@ -817,17 +845,11 @@ function escapeHTML(text) {
         document.createElement("div");
 
     div.textContent =
-        text;
+        String(text);
 
     return div.innerHTML;
 
 }
-
-
-/* =========================
-   FIN DEL SCRIPT
-========================= */
-
 </script>
 
 
