@@ -1,836 +1,1075 @@
-<!DOCTYPE html>
-<html lang="es">
+/* =====================================================
+   TU OBJETIVO MI PLAN
+   STYLE.CSS — PARTE 1/4
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0f0f0f;
+    --bg2: #111111;
+    --card: #1b1b1b;
+    --text: #ffffff;
+    --muted: #d6d6d6;
+    --accent: #FFD700;
+    --whatsapp: #25D366;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button,
+input {
+    font-family: inherit;
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Tu Objetivo Mi Plan | Entrenador Personal Online</title>
+/* =====================================================
+   NAVEGACIÓN
+===================================================== */
 
-    <meta name="description"
-        content="Entrenamiento personal, nutrición y seguimiento personalizado con Anass. Gana masa muscular, pierde grasa y alcanza tus objetivos.">
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 5vw;
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    background: #181818;
 
-    <link rel="stylesheet" href="style.css">
-</head>
+    position: sticky;
+    top: 0;
 
-<body>
+    z-index: 1000;
 
-<!-- =========================
-     NAVEGACIÓN
-========================= -->
+    border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+}
 
-<nav>
+.logo {
+    color: var(--accent);
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: bold;
+}
 
-    <div class="logo">
-        <i class="fas fa-dumbbell"></i>
-        Tu Objetivo Mi Plan
-    </div>
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+}
 
-    <ul>
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#planes">Planes</a></li>
-        <li><a href="#opiniones">Testimonios</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-    </ul>
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    transition: 0.3s;
+}
 
-</nav>
+nav a:hover {
+    color: var(--accent);
+}
 
 
-<!-- =========================
-     INICIO
-========================= -->
+/* =====================================================
+   HERO
+===================================================== */
 
-<section class="hero" id="inicio">
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    <div class="texto">
+    gap: 48px;
 
-        <h1>ANASS</h1>
+    padding: 80px 5vw;
 
-        <h2>Entrenador Personal</h2>
+    min-height: 85vh;
+}
 
-        <p>
-            Entrenamientos personalizados y planes de alimentación
-            adaptados a tus objetivos.
-            Gana masa muscular, pierde grasa y mejora tu condición
-            física con un seguimiento profesional.
-        </p>
+.texto {
+    flex: 1;
+    max-width: 640px;
+}
 
-        <section class="frase-motivacion">
+.foto {
+    flex: 1;
 
-            <h2 class="frase">
-                Los resultados no llegan por suerte.
-                <br>
-                Llegan con un <span>plan.</span>
-            </h2>
+    display: flex;
+    justify-content: center;
+}
 
-            <p>
-                💪 Más de <strong>300 kg perdidos</strong> por mis clientes
-                gracias a un entrenamiento y nutrición completamente
-                personalizados.
-            </p>
+.foto img {
+    width: min(430px, 100%);
 
-        </section>
+    border-radius: 25px;
 
-    </div>
+    box-shadow:
+        0 0 40px rgba(255, 215, 0, 0.35);
+}
 
 
-    <div class="foto">
+/* =====================================================
+   TÍTULOS Y TEXTO
+===================================================== */
 
-        <img src="anas.jpeg" alt="Anass - Entrenador personal">
+h1 {
+    color: var(--accent);
 
-    </div>
+    font-size: clamp(48px, 7vw, 70px);
 
-</section>
+    margin-bottom: 15px;
+}
 
+h2 {
+    font-size: clamp(28px, 4vw, 38px);
 
-<!-- =========================
-     ESTADÍSTICAS
-========================= -->
+    margin-bottom: 25px;
+}
 
-<section class="estadisticas">
+p {
+    font-size: clamp(18px, 2vw, 22px);
 
-    <div class="stat">
+    color: var(--muted);
 
-        <h2>300+</h2>
+    line-height: 1.7;
 
-        <p>
-            Kg perdidos por mis clientes
-        </p>
+    margin-bottom: 32px;
+}
 
-    </div>
 
+/* =====================================================
+   FRASE MOTIVACIONAL
+===================================================== */
 
-    <div class="stat">
+.frase {
+    color: white;
 
-        <h2>100%</h2>
+    font-size: clamp(28px, 5vw, 48px);
 
-        <p>
-            Planes totalmente personalizados
-        </p>
+    font-weight: 700;
 
-    </div>
+    line-height: 1.35;
 
+    text-align: center;
 
-    <div class="stat">
+    margin: 40px auto;
 
-        <h2>7 días</h2>
+    padding: 24px;
 
-        <p>
-            Seguimiento por WhatsApp
-        </p>
+    border-left: 5px solid var(--accent);
+    border-right: 5px solid var(--accent);
 
-    </div>
+    background: rgba(255, 215, 0, 0.05);
 
-</section>
+    border-radius: 15px;
+}
 
+.frase span {
+    color: var(--accent);
 
-<!-- =========================
-     SERVICIOS
-========================= -->
+    text-transform: uppercase;
 
-<section id="servicios" class="servicios">
+    letter-spacing: 2px;
+}
 
-    <h2>Servicios</h2>
 
-    <div class="cards">
+/* =====================================================
+   ESTADÍSTICAS
+===================================================== */
 
-        <div class="card">
+.estadisticas {
+    display: flex;
 
-            <h3>
-                💪 Entrenamiento Personal
-            </h3>
+    justify-content: center;
+    align-items: center;
 
-            <p>
-                Rutinas totalmente personalizadas adaptadas a tu nivel,
-                objetivos y material disponible.
-            </p>
+    gap: 64px;
 
-        </div>
+    padding: 80px 5vw;
 
+    background: #0d0d0d;
 
-        <div class="card">
+    flex-wrap: wrap;
+}
 
-            <h3>
-                🥗 Nutrición
-            </h3>
+.stat {
+    text-align: center;
+}
 
-            <p>
-                Planes de alimentación personalizados para ganar masa
-                muscular, perder grasa o mejorar tu rendimiento.
-            </p>
+.stat h2 {
+    font-size: clamp(42px, 6vw, 60px);
 
-        </div>
+    color: var(--accent);
 
+    margin-bottom: 10px;
+}
 
-        <div class="card">
+.stat p {
+    color: white;
 
-            <h3>
-                📈 Seguimiento
-            </h3>
+    font-size: clamp(18px, 2vw, 22px);
 
-            <p>
-                Seguimiento semanal por WhatsApp con ajustes constantes
-                para asegurar tu progreso.
-            </p>
+    max-width: 220px;
 
-        </div>
+    margin: 0 auto;
+}
 
-    </div>
 
-</section>
-<!DOCTYPE html>
-<html lang="es">
+/* =====================================================
+   SECCIONES
+===================================================== */
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+.servicios,
+.planes,
+.opiniones,
+.contacto {
+    padding: 100px 5vw;
+}
 
-    <title>Tu Objetivo Mi Plan | Entrenador Personal Online</title>
+.servicios {
+    background: var(--bg2);
+}
 
-    <meta name="description"
-        content="Entrenamiento personal, nutrición y seguimiento personalizado con Anass. Gana masa muscular, pierde grasa y alcanza tus objetivos.">
+.servicios h2,
+.planes h2,
+.opiniones h2,
+.contacto h2 {
+    text-align: center;
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    color: var(--accent);
 
-    <link rel="stylesheet" href="style.css">
-</head>
+    font-size: clamp(34px, 5vw, 52px);
 
-<body>
+    margin-bottom: 50px;
 
-<!-- =========================
-     NAVEGACIÓN
-========================= -->
+    text-transform: uppercase;
 
-<nav>
+    letter-spacing: 2px;
+}
 
-    <div class="logo">
-        <i class="fas fa-dumbbell"></i>
-        Tu Objetivo Mi Plan
-    </div>
+.testimonios-subtitulo {
+    color: #cccccc;
 
-    <ul>
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#planes">Planes</a></li>
-        <li><a href="#opiniones">Testimonios</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-    </ul>
+    font-size: clamp(18px, 2vw, 22px);
 
-</nav>
+    margin-bottom: 50px;
 
+    text-align: center;
+}
 
-<!-- =========================
-     INICIO
-========================= -->
 
-<section class="hero" id="inicio">
+/* =====================================================
+   TARJETAS
+===================================================== */
 
-    <div class="texto">
+.cards {
+    display: flex;
 
-        <h1>ANASS</h1>
+    justify-content: center;
 
-        <h2>Entrenador Personal</h2>
+    gap: 30px;
 
-        <p>
-            Entrenamientos personalizados y planes de alimentación
-            adaptados a tus objetivos.
-            Gana masa muscular, pierde grasa y mejora tu condición
-            física con un seguimiento profesional.
-        </p>
+    flex-wrap: wrap;
+}
 
-        <section class="frase-motivacion">
+.card {
+    width: min(320px, 100%);
 
-            <h2 class="frase">
-                Los resultados no llegan por suerte.
-                <br>
-                Llegan con un <span>plan.</span>
-            </h2>
+    background: var(--card);
 
-            <p>
-                💪 Más de <strong>300 kg perdidos</strong> por mis clientes
-                gracias a un entrenamiento y nutrición completamente
-                personalizados.
-            </p>
+    padding: 30px;
 
-        </section>
+    border-radius: 20px;
 
-    </div>
+    text-align: center;
 
+    border: 1px solid var(--accent);
 
-    <div class="foto">
+    transition: 0.3s;
+}
 
-        <img src="anas.jpeg" alt="Anass - Entrenador personal">
+.card:hover {
+    transform: translateY(-8px);
 
-    </div>
+    box-shadow:
+        0 0 30px rgba(255, 215, 0, 0.35);
+}
 
-</section>
+.card h3 {
+    color: var(--accent);
 
+    margin-bottom: 15px;
 
-<!-- =========================
-     ESTADÍSTICAS
-========================= -->
+    font-size: clamp(22px, 3vw, 30px);
+}
 
-<section class="estadisticas">
+.card p {
+    color: #ddd;
 
-    <div class="stat">
+    line-height: 1.6;
 
-        <h2>300+</h2>
+    margin-bottom: 0;
+}
 
-        <p>
-            Kg perdidos por mis clientes
-        </p>
 
-    </div>
+/* =====================================================
+   BOTÓN WHATSAPP
+===================================================== */
 
+.btn {
+    display: inline-block;
 
-    <div class="stat">
+    background: var(--whatsapp);
 
-        <h2>100%</h2>
+    color: #fff;
 
-        <p>
-            Planes totalmente personalizados
-        </p>
+    padding: 18px 40px;
 
-    </div>
+    border-radius: 50px;
 
+    text-decoration: none;
 
-    <div class="stat">
+    font-weight: bold;
 
-        <h2>7 días</h2>
+    font-size: 20px;
 
-        <p>
-            Seguimiento por WhatsApp
-        </p>
+    transition: 0.3s;
+}
 
-    </div>
+.btn:hover {
+    transform: scale(1.05);
+}
 
-</section>
+.contacto {
+    text-align: center;
 
+    background: var(--bg2);
+}
 
-<!-- =========================
-     SERVICIOS
-========================= -->
 
-<section id="servicios" class="servicios">
+/* =====================================================
+   FOOTER
+===================================================== */
 
-    <h2>Servicios</h2>
+.footer {
+    background: var(--bg2);
 
-    <div class="cards">
+    text-align: center;
 
-        <div class="card">
+    padding: 40px 5vw;
 
-            <h3>
-                💪 Entrenamiento Personal
-            </h3>
+    border-top: 2px solid var(--accent);
+}
 
-            <p>
-                Rutinas totalmente personalizadas adaptadas a tu nivel,
-                objetivos y material disponible.
-            </p>
+.footer p {
+    color: white;
 
-        </div>
+    font-size: 18px;
 
+    margin-bottom: 20px;
+}
 
-        <div class="card">
+.footer-links {
+    display: flex;
 
-            <h3>
-                🥗 Nutrición
-            </h3>
+    justify-content: center;
 
-            <p>
-                Planes de alimentación personalizados para ganar masa
-                muscular, perder grasa o mejorar tu rendimiento.
-            </p>
+    gap: 24px;
 
-        </div>
+    flex-wrap: wrap;
+}
 
+.footer-links a {
+    color: var(--accent);
 
-        <div class="card">
+    text-decoration: none;
 
-            <h3>
-                📈 Seguimiento
-            </h3>
+    font-weight: bold;
+}
 
-            <p>
-                Seguimiento semanal por WhatsApp con ajustes constantes
-                para asegurar tu progreso.
-            </p>
+.footer-links a:hover {
+    color: white;
+}
+/* =====================================================
+   RESPONSIVE — TABLET
+===================================================== */
 
-        </div>
+@media (max-width: 992px) {
 
-    </div>
-
-</section>
-
-
-<!-- =========================
-     ASISTENTE IA
-========================= -->
-
-<!-- Botón flotante -->
-
-<button
-    id="chat-btn"
-    type="button"
-    aria-label="Abrir asistente IA"
->
-    🤖
-</button>
-
-
-<!-- Ventana del asistente -->
-
-<div
-    id="chat-box"
-    aria-label="Asistente IA"
->
-
-    <!-- Cabecera -->
-
-    <div id="chat-header">
-
-        <div>
-            🤖 <strong>Asistente IA</strong>
-        </div>
-
-        <button
-            id="chat-close"
-            type="button"
-            aria-label="Cerrar asistente"
-        >
-            ×
-        </button>
-
-    </div>
-
-
-    <!-- Mensajes -->
-
-    <div id="chat-messages">
-
-        <div class="ia-message">
-
-            <p>
-                <strong>🤖 Asistente IA</strong>
-            </p>
-
-            <p>
-                ¡Hola! Soy el asistente de
-                <strong>Tu Objetivo Mi Plan</strong>.
-            </p>
-
-            <p>
-                ¿Cuál es tu objetivo?
-            </p>
-
-        </div>
-
-
-        <!-- Preguntas rápidas -->
-
-        <div id="preguntas-rapidas">
-
-            <button
-                type="button"
-                onclick="responder('grasa')"
-            >
-                🔥 Perder grasa
-            </button>
-
-
-            <button
-                type="button"
-                onclick="responder('masa')"
-            >
-                💪 Ganar masa muscular
-            </button>
-
-
-            <button
-                type="button"
-                onclick="responder('nutricion')"
-            >
-                🥗 Nutrición
-            </button>
-
-
-            <button
-                type="button"
-                onclick="responder('planes')"
-            >
-                📋 Ver planes
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- Campo para escribir -->
-
-    <div id="chat-input-container">
-
-        <input
-            type="text"
-            id="entrada-chat"
-            placeholder="Escribe tu pregunta..."
-            autocomplete="off"
-        >
-
-        <button
-            type="button"
-            id="enviar-chat"
-        >
-            Enviar
-        </button>
-
-    </div>
-
-</div>
-<!-- =========================
-     JAVASCRIPT ASISTENTE IA
-========================= -->
-
-<script>
-
-const WORKER_URL =
-    "https://wandering-breeze-f4e2.anasjazouly.workers.dev/";
-
-
-const chatBtn =
-    document.getElementById("chat-btn");
-
-const chatBox =
-    document.getElementById("chat-box");
-
-const chatClose =
-    document.getElementById("chat-close");
-
-const chatMessages =
-    document.getElementById("chat-messages");
-
-const entradaChat =
-    document.getElementById("entrada-chat");
-
-const enviarChat =
-    document.getElementById("enviar-chat");
-
-
-/* =========================
-   ABRIR CHAT
-========================= */
-
-chatBtn.addEventListener("click", function () {
-
-    chatBox.classList.add("chat-abierto");
-
-    entradaChat.focus();
-
-});
-
-
-/* =========================
-   CERRAR CHAT
-========================= */
-
-chatClose.addEventListener("click", function () {
-
-    chatBox.classList.remove("chat-abierto");
-
-});
-
-
-/* =========================
-   ENVIAR CON ENTER
-========================= */
-
-entradaChat.addEventListener("keydown", function (event) {
-
-    if (event.key === "Enter") {
-
-        event.preventDefault();
-
-        enviarPregunta();
-
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 5vw;
     }
 
-});
+    .texto {
+        max-width: 100%;
+    }
+
+    .foto {
+        width: 100%;
+    }
+
+    .foto img {
+        width: min(400px, 90%);
+    }
+
+    nav {
+        padding: 18px 5vw;
+    }
+
+    nav ul {
+        gap: 20px;
+    }
+
+    .estadisticas {
+        gap: 40px;
+    }
+
+}
 
 
-/* =========================
-   BOTÓN ENVIAR
-========================= */
+/* =====================================================
+   RESPONSIVE — MÓVIL
+===================================================== */
 
-enviarChat.addEventListener("click", function () {
+@media (max-width: 768px) {
 
-    enviarPregunta();
+    nav {
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px 5vw;
+    }
 
-});
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+    }
+
+    nav a {
+        font-size: 18px;
+    }
+
+    .hero {
+        padding: 40px 5vw;
+        gap: 28px;
+    }
+
+    .foto img {
+        width: min(320px, 100%);
+    }
+
+    .frase {
+        font-size: 32px;
+        padding: 22px;
+    }
+
+    .estadisticas {
+        flex-direction: column;
+        gap: 28px;
+        padding: 60px 5vw;
+    }
+
+    .servicios,
+    .planes,
+    .opiniones,
+    .contacto {
+        padding: 70px 5vw;
+    }
+
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 380px;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 360px;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+}
 
 
-/* =========================
+/* =====================================================
+   RESPONSIVE — MÓVILES PEQUEÑOS
+===================================================== */
+
+@media (max-width: 480px) {
+
+    h1 {
+        font-size: 42px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .frase {
+        font-size: 28px;
+    }
+
+    .card {
+        padding: 24px;
+    }
+
+    .btn {
+        padding: 16px 24px;
+        font-size: 18px;
+    }
+
+}
+/* =====================================================
+   ASISTENTE IA — BOTÓN FLOTANTE
+===================================================== */
+
+#chat-btn {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    width: 68px;
+    height: 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--accent);
+    color: #000;
+
+    border: none;
+    border-radius: 50%;
+
+    font-size: 32px;
+
+    cursor: pointer;
+
+    z-index: 9999;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+#chat-btn:hover {
+    transform: scale(1.08);
+
+    box-shadow:
+        0 10px 35px rgba(255, 215, 0, 0.35);
+}
+
+
+/* =====================================================
+   VENTANA DEL ASISTENTE
+===================================================== */
+
+#chat-box {
+    position: fixed;
+
+    right: 25px;
+    bottom: 110px;
+
+    width: 380px;
+    max-width: calc(100vw - 30px);
+
+    height: 560px;
+    max-height: calc(100vh - 140px);
+
+    display: flex;
+    flex-direction: column;
+
+    background: #151515;
+
+    border: 1px solid rgba(255, 215, 0, 0.35);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.65);
+
+    z-index: 9998;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(20px) scale(0.96);
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+/* CHAT ABIERTO */
+
+#chat-box.chat-abierto {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0) scale(1);
+
+    pointer-events: auto;
+}
+
+
+/* =====================================================
+   CABECERA
+===================================================== */
+
+#chat-header {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 18px;
+
+    background: var(--accent);
+    color: #000;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* BOTÓN CERRAR */
+
+#chat-close {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+
+    color: #000;
+
+    border: none;
+    border-radius: 50%;
+
+    font-size: 28px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+#chat-close:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+
+/* =====================================================
+   MENSAJES
+===================================================== */
+
+#chat-messages {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding: 18px;
+
+    background: #151515;
+
+    color: white;
+
+    scroll-behavior: smooth;
+}
+
+
+/* BARRA DE SCROLL */
+
+#chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+#chat-messages::-webkit-scrollbar-thumb {
+    background: #555;
+
+    border-radius: 10px;
+}
+
+
+/* TEXTO DEL CHAT */
+
+#chat-messages p {
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    margin-bottom: 12px;
+
+    color: #eeeeee;
+}
+
+
+/* =====================================================
+   MENSAJE DE LA IA
+===================================================== */
+
+.ia-message {
+    width: fit-content;
+
+    max-width: 90%;
+
+    background: #242424;
+
+    color: white;
+
+    padding: 12px 14px;
+
+    border-radius: 14px;
+
+    margin-bottom: 12px;
+
+    line-height: 1.5;
+}
+
+.ia-message strong {
+    color: var(--accent);
+}
+
+
+/* =====================================================
+   MENSAJE DEL USUARIO
+===================================================== */
+
+.usuario-message {
+    width: fit-content;
+
+    max-width: 90%;
+
+    margin-left: auto;
+
+    background: var(--accent);
+
+    color: #000;
+
+    padding: 12px 14px;
+
+    border-radius: 14px;
+
+    margin-bottom: 12px;
+
+    line-height: 1.5;
+
+    word-break: break-word;
+}
+
+
+/* =====================================================
    PREGUNTAS RÁPIDAS
-========================= */
+===================================================== */
 
-async function responder(tipo) {
+#preguntas-rapidas {
+    display: flex;
 
-    let pregunta = "";
+    flex-direction: column;
 
-    if (tipo === "grasa") {
+    gap: 8px;
 
-        pregunta =
-            "Quiero perder grasa. ¿Qué me recomiendas para empezar?";
+    margin-top: 12px;
+}
 
+#preguntas-rapidas button {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    background: #252525;
+
+    color: white;
+
+    border: 1px solid rgba(255, 215, 0, 0.5);
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+#preguntas-rapidas button:hover {
+    background: #333;
+
+    transform: translateX(3px);
+}
+/* =====================================================
+   ASISTENTE IA — CAMPO DE ESCRITURA
+===================================================== */
+
+#chat-input-container {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    width: 100%;
+
+    padding: 12px;
+
+    background: #1b1b1b;
+
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+
+/* CAMPO DE TEXTO */
+
+#entrada-chat {
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+
+    height: 46px;
+
+    padding: 0 14px;
+
+    background: #ffffff;
+
+    color: #111111;
+
+    border: 1px solid #cccccc;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+#entrada-chat::placeholder {
+    color: #777777;
+}
+
+#entrada-chat:focus {
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 0 2px rgba(255, 215, 0, 0.15);
+}
+
+
+/* BOTÓN ENVIAR */
+
+#enviar-chat {
+    flex-shrink: 0;
+
+    height: 46px;
+
+    padding: 0 16px;
+
+    background: var(--accent);
+
+    color: #000000;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+#enviar-chat:hover {
+    transform: scale(1.04);
+
+    background: #ffe44d;
+}
+
+#enviar-chat:active {
+    transform: scale(0.97);
+}
+
+
+/* =====================================================
+   WHATSAPP DENTRO DEL CHAT
+===================================================== */
+
+.ia-message a {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding: 9px 14px;
+
+    background: var(--whatsapp);
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   CHAT EN MÓVIL
+===================================================== */
+
+@media (max-width: 600px) {
+
+    #chat-btn {
+        width: 60px;
+        height: 60px;
+
+        right: 18px;
+        bottom: 18px;
+
+        font-size: 28px;
     }
 
-    if (tipo === "masa") {
 
-        pregunta =
-            "Quiero ganar masa muscular. ¿Qué me recomiendas para empezar?";
+    #chat-box {
+        right: 10px;
+        left: 10px;
 
+        bottom: 88px;
+
+        width: auto;
+        max-width: none;
+
+        height: min(600px, calc(100vh - 110px));
+
+        max-height: calc(100vh - 110px);
+
+        border-radius: 18px;
     }
 
-    if (tipo === "nutricion") {
 
-        pregunta =
-            "Quiero mejorar mi alimentación para conseguir mis objetivos.";
+    #chat-header {
+        padding: 14px 16px;
 
+        font-size: 17px;
     }
 
-    if (tipo === "planes") {
 
-        pregunta =
-            "¿Qué planes de entrenamiento y nutrición ofrece Tu Objetivo Mi Plan?";
-
+    #chat-messages {
+        padding: 14px;
     }
 
-    await enviarMensajeIA(pregunta);
+
+    #chat-input-container {
+        padding: 10px;
+
+        gap: 6px;
+    }
+
+
+    #entrada-chat {
+        height: 44px;
+
+        font-size: 15px;
+
+        padding: 0 12px;
+    }
+
+
+    #enviar-chat {
+        height: 44px;
+
+        padding: 0 13px;
+
+        font-size: 14px;
+    }
 
 }
 
 
-/* =========================
-   ENVIAR PREGUNTA
-========================= */
+/* =====================================================
+   MÓVILES PEQUEÑOS
+===================================================== */
 
-async function enviarPregunta() {
+@media (max-width: 380px) {
 
-    const pregunta =
-        entradaChat.value.trim();
+    #chat-box {
+        right: 6px;
+        left: 6px;
 
-    if (!pregunta) {
+        bottom: 82px;
 
-        return;
-
+        height: calc(100vh - 100px);
     }
 
-    entradaChat.value = "";
 
-    await enviarMensajeIA(pregunta);
-
-}
-
-
-/* =========================
-   CONEXIÓN CON WORKER
-========================= */
-
-async function enviarMensajeIA(pregunta) {
-
-    /* Mostrar pregunta del usuario */
-
-    const mensajeUsuario =
-        document.createElement("div");
-
-    mensajeUsuario.className =
-        "usuario-message";
-
-    mensajeUsuario.innerHTML =
-        `<strong>🧑 Tú:</strong><br>${escapeHTML(pregunta)}`;
-
-    chatMessages.appendChild(mensajeUsuario);
+    #chat-input-container {
+        padding: 8px;
+    }
 
 
-    /* Mostrar cargando */
-
-    const cargando =
-        document.createElement("div");
-
-    cargando.className =
-        "ia-message";
-
-    cargando.id =
-        "mensaje-cargando";
-
-    cargando.innerHTML =
-        "🤖 Pensando...";
-
-    chatMessages.appendChild(cargando);
+    #entrada-chat {
+        font-size: 14px;
+    }
 
 
-    chatMessages.scrollTop =
-        chatMessages.scrollHeight;
+    #enviar-chat {
+        padding: 0 10px;
 
-
-    try {
-
-        const respuesta =
-            await fetch(
-                WORKER_URL,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        mensaje: pregunta
-                    })
-                }
-            );
-
-
-        const datos =
-            await respuesta.json();
-
-
-        /* Eliminar mensaje de carga */
-
-        const mensajeCargando =
-            document.getElementById(
-                "mensaje-cargando"
-            );
-
-        if (mensajeCargando) {
-
-            mensajeCargando.remove();
-
-        }
-
-
-        /* Comprobar error */
-
-        if (!respuesta.ok) {
-
-            throw new Error(
-                datos.error ||
-                "Error del servidor"
-            );
-
-        }
-
-
-        /* Crear respuesta IA */
-
-        const mensajeIA =
-            document.createElement("div");
-
-        mensajeIA.className =
-            "ia-message";
-
-        mensajeIA.innerHTML = `
-            <strong>🤖 Asistente IA</strong>
-            <br><br>
-            ${escapeHTML(
-                datos.respuesta ||
-                "No he recibido ninguna respuesta."
-            )}
-        `;
-
-        chatMessages.appendChild(
-            mensajeIA
-        );
-
-
-        chatMessages.scrollTop =
-            chatMessages.scrollHeight;
-
-
-    } catch (error) {
-
-        console.error(
-            "Error IA:",
-            error
-        );
-
-
-        const mensajeCargando =
-            document.getElementById(
-                "mensaje-cargando"
-            );
-
-        if (mensajeCargando) {
-
-            mensajeCargando.remove();
-
-        }
-
-
-        const mensajeError =
-            document.createElement("div");
-
-        mensajeError.className =
-            "ia-message";
-
-        mensajeError.innerHTML = `
-            <strong>❌ Error</strong>
-            <br><br>
-            No he podido conectar con el asistente.
-            <br><br>
-            Puedes contactar directamente por WhatsApp.
-            <br><br>
-            <a
-                href="https://wa.me/34644832580"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Contactar por WhatsApp
-            </a>
-        `;
-
-        chatMessages.appendChild(
-            mensajeError
-        );
-
-
-        chatMessages.scrollTop =
-            chatMessages.scrollHeight;
-
+        font-size: 13px;
     }
 
 }
-
-
-/* =========================
-   SEGURIDAD
-========================= */
-
-function escapeHTML(text) {
-
-    const div =
-        document.createElement("div");
-
-    div.textContent =
-        text;
-
-    return div.innerHTML;
-
-}
-
-
-/* =========================
-   FIN DEL SCRIPT
-========================= */
-
-</script>
-
-
-</body>
-
-</html>
