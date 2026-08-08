@@ -243,7 +243,10 @@
 <button onclick="responder('nutricion')">🥗 Nutrición</button>
 
 <button onclick="responder('planes')">📋 Ver planes</button>
-
+<div class="chat-input">
+  <input type="text" id="entrada-chat" placeholder="Escribe tu pregunta...">
+  <button onclick="enviarPregunta()">Enviar</button>
+</div>
 </div>
 </div>
 
@@ -315,6 +318,55 @@ async function responder(tipo) {
     console.error(error);
 
     mensajes.innerHTML = `
+      <p><strong>❌ Error</strong></p>
+      <p>No he podido conectar con el asistente.</p>
+    `;
+  }
+}
+async function enviarPregunta() {
+  const entrada = document.getElementById("entrada-chat");
+  const pregunta = entrada.value.trim();
+
+  if (!pregunta) return;
+
+  mensajes.innerHTML += `
+    <p><strong>🧑 Tú:</strong> ${pregunta}</p>
+  `;
+
+  entrada.value = "";
+
+  try {
+    const respuesta = await fetch(
+      "https://wandering-breeze-f4e2.anasjazouly.workers.dev/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          mensaje: pregunta
+        })
+      }
+    );
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+      throw new Error(
+        datos.error || "Error del servidor"
+      );
+    }
+
+    mensajes.innerHTML += `
+      <p><strong>🤖 Asistente IA:</strong></p>
+      <p>${datos.respuesta}</p>
+    `;
+
+  } catch (error) {
+
+    console.error(error);
+
+    mensajes.innerHTML += `
       <p><strong>❌ Error</strong></p>
       <p>No he podido conectar con el asistente.</p>
     `;
