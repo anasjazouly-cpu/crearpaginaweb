@@ -487,3 +487,190 @@ border-radius:10px;
 font-size:18px;
 cursor:pointer;
 }
+export default {
+  async fetch(request, env) {
+
+    // GET: comprobar que el Worker funciona
+    if (request.method === "GET") {
+      return new Response("Worker funcionando correctamente", {
+        headers: {
+          "Content-Type": "text/plain"
+        }
+      });
+    }
+
+    // CORS
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Methods": "POST, OPTIONS"
+        }
+      });
+    }
+
+    // Solo aceptamos POST
+    if (request.method !== "POST") {
+      return new Response(
+        JSON.stringify({
+          error: "Método no permitido"
+        }),
+        {
+          status: 405,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      );
+    }
+
+    try {
+      // Leer el mensaje enviado desde la página
+      const cuerpo = await request.json();
+      const mensaje = cuerpo?.mensaje;
+
+      if (!mensaje) {
+        return new Response(
+          JSON.stringify({
+            error: "No se recibió ningún mensaje"
+          }),
+          {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        );
+      }
+
+      // Comprobar que existe la API Key
+      if (!env.GEMINI_API_KEY) {
+        return new Response(
+          JSON.stringify({
+            error: "Falta GEMINI_API_KEY en las variables del Worker"
+          }),
+          {
+            status: 500,
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        );
+      }
+
+      // Llamar a Gemini 3.5 Flash
+      const respuesta = await fetch(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent",
+        {
+          method: "POST",
+
+          headers: {
+            "x-goog-api-key": env.GEMINI_API_KEY,
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: `Eres el asistente oficial de Tu Objetivo Mi Plan.
+
+Responde siempre en español.
+
+Ayuda a los usuarios con:
+- Entrenamiento
+- Nutrición
+- Pérdida de grasa
+- Ganancia muscular
+- Hábitos saludables
+
+Sé amable, claro y profesional.
+
+Si el usuario quiere contratar un plan personalizado, dile que puede contactar con Anass por WhatsApp.
+
+Pregunta del usuario:
+${mensaje}`
+                  }
+                ]
+              }
+            ]
+          })
+        }
+      );
+
+      // Leer respuesta de Gemini
+      const datos = await respuesta.json();
+
+      // Si Gemini devuelve un error
+      if (!respuesta.ok) {
+        return new Response(
+          JSON.stringify({
+            error: "Error de Gemini",
+            detalles: datos
+          }),
+          {
+            status: respuesta.status,
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        );
+      }
+
+      // Obtener texto de Gemini
+      const texto =
+        datos?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (!texto) {
+        return new Response(
+          JSON.stringify({
+            error: "Gemini no devolvió ningún texto",
+            detalles: datos
+          }),
+          {
+            status: 500,
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        );
+      }
+
+      // Respuesta final para nuestra página
+      return new Response(
+        JSON.stringify({
+          respuesta: texto
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      );
+
+    } catch (error) {
+
+      return new Response(
+        JSON.stringify({
+          error: "Error interno del Worker",
+          detalles: error?.message || String(error)
+        }),
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      );
+    }
+  }
+};
